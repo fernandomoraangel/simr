@@ -1,0 +1,90 @@
+<!-- View listar ejemplares-->
+<ng-include src="'example/views/example.client.view.html'" /></ng-include>
+<section class="bodyList" data-ng-controller="EjemplaresController" class="bodyList" data-ng-init="find()">
+	<label class="tituloVista">EJEMPLARES</label>
+	<ul>
+		<div class="wrapper">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th> <span class="glyphicon glyphicon-filter"> </span> <input type="text" class="campoList"
+								ng-model="search">
+							<!-- <button ng-click="propertyName = null; reverse = false">NO ORDENAR</button> -->
+						</th>
+				</thead>
+			</table>
+			<!-- Table -->
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>
+							<!-- Columna sin título -->
+						</th>
+						<th>
+							<button class="btn-lg3" ng-click="sortBy('recurso')">RECURSO</button>
+							<span class="sortorder" ng-show="propertyName === 'recurso'"
+								ng-class="{reverse: reverse}"></span>
+						</th>
+
+						<th>
+							<button class="btn-lg3" ng-click="sortBy('fondo')">FONDO</button>
+							<span class="sortorder" ng-show="propertyName === 'fondo'"
+								ng-class="{reverse: reverse}"></span>
+						</th>
+
+						<th>
+							<button class="btn-lg3" ng-click="sortBy('coleccion')">COLECCIÓN</button>
+							<span class="sortorder" ng-show="propertyName === 'coleccion'"
+								ng-class="{reverse: reverse}"></span>
+						</th>
+
+						<th>
+							<button class="btn-lg3" ng-click="sortBy('numeroEjemplar')">EJEMPLAR</button>
+							<span class="sortorder" ng-show="propertyName === 'numeroEjemplar'"
+								ng-class="{reverse: reverse}"></span>
+						</th>
+
+						<th>
+							<button class="btn-lg3" ng-click="sortBy('disponibilidad')">DISPONIBILIDAD</button>
+							<span class="sortorder" ng-show="propertyName === 'disponibilidad'"
+								ng-class="{reverse: reverse}"></span>
+						</th>
+
+						<th>
+							<button class="btn-lg3" ng-click="sortBy('estados')">ESTADO</button>
+							<span class="sortorder" ng-show="propertyName === 'estados'"
+								ng-class="{reverse: reverse}"></span>
+						</th>
+
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr data-ng-repeat="ejemplar in ejemplares | orderBy:propertyName:reverse |filter:search">
+
+						<!-- ejemplars es el modelo-->
+						<td>
+							<a href="/#!/ejemplares/{{ejemplar._id}}"><span class="glyphicon glyphicon-sunglasses"></a>
+						</td>
+						<td data-ng-bind="verRecurso(ejemplar.recurso)"></td>
+						<td data-ng-bind="verFondo(ejemplar.fondo)"></td>
+						<td data-ng-bind="verColeccion(ejemplar.coleccion)"></td>
+						<td data-ng-bind="ejemplar.numeroEjemplar"></td>
+						<td data-ng-bind="ejemplar.disponibilidad"></td>
+						<td data-ng-bind="verEstados(ejemplar.estados)"></td>
+						<td data-ng-show="authentication.user._id == ejemplar.creador._id">
+							<a href="/#!/ejemplares/{{ejemplar._id}}/edit"><span class="glyphicon glyphicon-pencil"></a>
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+
+
+		</div>
+	</ul>
+
+	<div data-ng-hide="!ejemplars || ejemplars.length">
+		<a href="/#!/ejemplars/create"></a>
+</section>
