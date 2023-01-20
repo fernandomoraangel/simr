@@ -58,7 +58,86 @@ https://rogerdudler.github.io/git-guide/index.es.html
 6. Install MongoDB https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-suse/
 7. 
 ## Instalar en Ubuntu versión 20.0.4
+1. Instalar Mongo DB 
+sudo apt-get update
+sudo apt-get install -y mongodb-server
+Y si no ...
+https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/#install-mongodb-community-edition
+Solucionar problemas de dependencias incumplidas https://askubuntu.com/questions/1403619/mongodb-install-fails-on-ubuntu-22-04-depends-on-libssl1-1-but-it-is-not-insta
 
-1. https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/#install-mongodb-community-edition
-2. SOlucionar problemas de dependencias incumplidas https://askubuntu.com/questions/1403619/mongodb-install-fails-on-ubuntu-22-04-depends-on-libssl1-1-but-it-is-not-insta
-3. 
+Verificar que Mongo está corriendo y agregarlo para que inicie automaticamente	
+sudo systemctl start mongod
+sudo systemctl status mongod
+sudo systemctl enable mongod
+
+Probar que funciona con mongosh
+
+Reparar permisos de Mongodb (si aparece un error)
+sudo chown -R mongodb:mongodb /var/lib/mongodb
+sudo chown mongodb:mongodb /tmp/mongodb-27017.sock
+
+2. Instalar Nodejs
+sudo apt-get install -y nodejs npm
+
+3. Instalar Express
+npm install express --save
+
+4. Clonar repositorio
+5. npm install
+6. npm start
+
+7. Instalar PM2 ver: https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-20-04
+sudo npm install pm2@latest -g
+Desde el directorio de la aplicación:
+pm2 start server.js
+pm2 startup systemd
+sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u fma --hp /home/fma
+Correr, cambiando sammy por el usuario
+pm2 save
+sudo systemctl start pm2-sammy
+systemctl status pm2-fma
+Probar si todo va bien: 
+pm2 monit
+
+81. Crear Certificado SSL autofirmado:
+82. Crear carpeta para guardar el certificado y la clave:
+openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out example.crt -keyout example.key
+
+Ver: https://liukin.es/como-crear-certificados-autofirmados-en-ubuntu-linux/
+
+10. Instalar Nginx
+   sudo apt-get install nginx
+   Crear archivo de configuración
+   sudo nano /etc/nginx/sites-available/default
+   
+   Agregar a archivo de configuracion
+   Debe incluir, dentro de server:
+    listen 443 ssl default_server;
+    root /home/fma/simr;
+    server_name simr.com;
+    ssl_certificate /home/fma/ssl/example.crt;
+    ssl_certificate_key /home/fma/ssl/example.key;
+   Comentar la línea: #try_files $uri $uri/ =404;
+
+1.  Reiniciar Nginxs
+sudo service nginx restart
+1.  Configurar Firewall
+    sudo ufw allow 80/tcp
+     sudo ufw allow 443/tcp
+     sudo ufw allow 27017/tcp
+     También 27017 si se va a utilizar compass para administrar las bases de datos
+    sudo ufw enable
+
+## Para usar Compass:
+
+1. Abre el archivo de configuración de MongoDB en tu editor de texto preferido. El archivo se encuentra en /etc/mongod.conf.
+
+2. Busca la línea "bindIp: 127.0.0.1" y cambia "127.0.0.1" por "0.0.0.0" para permitir que MongoDB escuche en todas las interfaces de red. Esto permite que las conexiones remotas se establezcan con tu servidor.
+
+3. Guarda y cierra el archivo de configuración.
+
+4. Reinicia MongoDB para que los cambios surtan efecto ejecutando el comando "sudo systemctl restart mongod"
+
+5. Si tienes un firewall habilitado en tu servidor Ubuntu, asegúrate de permitir el tráfico entrante en el puerto 27017.
+
+Importar usando Compass la colección Diccionarios, como JSON
