@@ -35,17 +35,16 @@ https://rogerdudler.github.io/git-guide/index.es.html
 4. git push origin main
 
 ## Pendiente
-1. Difundir Ayuda al nivel de tabla.
-2. Cambiar el nombre de la carpeta "example"
-3.  Eliminar variables redundantes y funciones no utilizadas.
-4.  Preparar y definir colaboradores parala Wiki del proyecto.
-5.  Exportar colección "diccionarios".
-6.  Resolver problemas con acentos y ñ al importar. UTF8
-7.  Construir sistema de roles y permisos.
-8.  Construir sistema de auditoría. Revisar el modelo de datos de la auditoría.
-9.  Verificar existencia de URL en campo enlaces.
-10. Subir archivos.
-11. Versionado semántico.
+1. Resolver problema de borrado en la actualización.
+2. Difundir Ayuda al nivel de tabla.
+3. Cambiar el nombre de la carpeta "example"
+4.  Eliminar variables redundantes y funciones no utilizadas.
+5.  Preparar y definir colaboradores parala Wiki del proyecto.
+6.  Construir sistema de roles y permisos.
+7.  Construir sistema de auditoría. Revisar el modelo de datos de la auditoría.
+8.  Verificar existencia de URL en campo enlaces.
+9.  Subir archivos.
+10. Versionado semántico.
 
 ## Bugs conocidos
 
@@ -56,7 +55,7 @@ https://rogerdudler.github.io/git-guide/index.es.html
 4. su
 5. zypper install nodejs
 6. Install MongoDB https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-suse/
-7. 
+   
 ## Instalar en Ubuntu versión 20.0.4
 1. Instalar Mongo DB 
 sudo apt-get update
@@ -83,10 +82,12 @@ sudo apt-get install -y nodejs npm
 npm install express --save
 
 4. Clonar repositorio
-5. npm install
-6. npm start
+5. Instalar Git
+sudo git clone https://github.com/fernandomoraangel/simr.git
+1. sudo sudo npm startnpm install
+2. npm start
 
-7. Instalar PM2 ver: https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-20-04
+3. Instalar PM2 ver: https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-20-04
 sudo npm install pm2@latest -g
 Desde el directorio de la aplicación:
 pm2 start server.js
@@ -94,14 +95,14 @@ pm2 startup systemd
 sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u fma --hp /home/fma
 Correr, cambiando sammy por el usuario
 pm2 save
-sudo systemctl start pm2-sammy
+sudo systemctl start pm2-fma
 systemctl status pm2-fma
 Probar si todo va bien: 
 pm2 monit
 
-81. Crear Certificado SSL autofirmado:
-82. Crear carpeta para guardar el certificado y la clave:
-openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out example.crt -keyout example.key
+1.  Crear Certificado SSL autofirmado:
+2.  Crear carpeta para guardar el certificado y la clave:
+openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out simr.crt -keyout simr.key
 
 Ver: https://liukin.es/como-crear-certificados-autofirmados-en-ubuntu-linux/
 
@@ -119,25 +120,41 @@ Ver: https://liukin.es/como-crear-certificados-autofirmados-en-ubuntu-linux/
     ssl_certificate_key /home/fma/ssl/example.key;
    Comentar la línea: #try_files $uri $uri/ =404;
 
-1.  Reiniciar Nginxs
+19.  Reiniciar Nginxs
 sudo service nginx restart
-1.  Configurar Firewall
+20.  Configurar Firewall (en ubuntu)
     sudo ufw allow 80/tcp
      sudo ufw allow 443/tcp
      sudo ufw allow 27017/tcp
      También 27017 si se va a utilizar compass para administrar las bases de datos
     sudo ufw enable
 
+ (en Suse):
+ # Agregar servicio Nginx a la zona pública
+firewall-cmd --permanent --zone=public --add-service=http
+firewall-cmd --permanent --zone=public --add-service=https
+
+# Abrir los puertos 80 y 443 en la zona pública
+firewall-cmd --permanent --zone=public --add-port=80/tcp
+firewall-cmd --permanent --zone=public --add-port=443/tcp
+
+# Recargar la configuración del firewall
+firewall-cmd --reload
+
 ## Para usar Compass:
 
 1. Abre el archivo de configuración de MongoDB en tu editor de texto preferido. El archivo se encuentra en /etc/mongod.conf.
 
 2. Busca la línea "bindIp: 127.0.0.1" y cambia "127.0.0.1" por "0.0.0.0" para permitir que MongoDB escuche en todas las interfaces de red. Esto permite que las conexiones remotas se establezcan con tu servidor.
+   
 
-3. Guarda y cierra el archivo de configuración.
+4. Guarda y cierra el archivo de configuración.
 
-4. Reinicia MongoDB para que los cambios surtan efecto ejecutando el comando "sudo systemctl restart mongod"
+5. Reinicia MongoDB para que los cambios surtan efecto ejecutando el comando "sudo systemctl restart mongod"
 
-5. Si tienes un firewall habilitado en tu servidor Ubuntu, asegúrate de permitir el tráfico entrante en el puerto 27017.
+6. Si tienes un firewall habilitado en tu servidor Ubuntu, asegúrate de permitir el tráfico entrante en el puerto 27017.
+firewall-cmd --permanent --zone=public --add-port=27017/tcp
+   
+
 
 Importar usando Compass la colección Diccionarios, como JSON
