@@ -1885,7 +1885,7 @@ angular.module("recursos").controller("RecursosController", [
 
       if (this.titulo == undefined) {
         $scope.errorclass = "form-controlError";
-        alert("Campos pendientes");
+        //alert("Campos pendientes");
       } else {
         validar = true;
       }

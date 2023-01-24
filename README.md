@@ -1,7 +1,7 @@
 # SIMR
 El Sistema de información de músicas regionales (simr) es una aplicación CRUD elaborada para administrar el catálogo del grupo de investigación de Músicas Regionales de la Universidad de Antioquia, bajo la arquitectura MEAN stack.
 
-## Instrucciones
+## Instrucciones (En desarrollo)
 1. Instalar Mongodb, Nodejs
 2. Incluir el directorio de Mongodb en el path
 3. Crear directorio para la base de datos en C:\data\db
@@ -9,13 +9,13 @@ El Sistema de información de músicas regionales (simr) es una aplicación CRUD
 5. npm start
 
 ## Para reiniciar servidor automáticamente:
-1. npm install nodemon -g
-2. npm install -g sassSet-ExecutionPolicy Unrestricted
-3. Iniciar con nodemon --inspect server.js 
+1.     npm install nodemon -g
+2.     npm install -g sassSet-ExecutionPolicy Unrestricted
+3. Iniciar con    nodemon --inspect server.js 
 4. Debug: Atack to node process
 
 ### Tutorial:
-https://www.digitalocean.com/community/tutorials/workflow-nodemon-es
+[Tutorial nodemon](https://www.digitalocean.com/community/tutorials/workflow-nodemon-es)
 
 Usar ctrl+shift+v para visualizar Markdown
 
@@ -50,86 +50,82 @@ https://rogerdudler.github.io/git-guide/index.es.html
 
 ## Instalar en servidor SUSE
 1. Instalar SSH y agregar regla en Firewall https://www.simplified.guide/suse/enable-ssh
-2. Avzypper install nodejs18eriguar ip con comando "ip"
-3. ssh fma@192.168.68.106
-4. su
-5. zypper install nodejs
-6. Install MongoDB https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-suse/
+2.     zypper install nodejs
+3. Averiguar ip con comando "ip"
+4.     ssh fma@192.168.68.106
+5.     su
+6.     zypper install nodejs
+7. [Install MongoDB](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-suse/)
    
 ## Instalar en Ubuntu versión 20.0.4
 1. Instalar Mongo DB 
-sudo apt-get update
-sudo apt-get install -y mongodb-server
-Y si no ...
-https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/#install-mongodb-community-edition
-Solucionar problemas de dependencias incumplidas https://askubuntu.com/questions/1403619/mongodb-install-fails-on-ubuntu-22-04-depends-on-libssl1-1-but-it-is-not-insta
+    sudo apt-get update
+    sudo apt-get install -y mongodb-server
+[Y si no](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/#install-mongodb-community-edition)
+[Solucionar problemas de dependencias incumplidas](https://askubuntu.com/questions/1403619/mongodb-install-fails-on-ubuntu-22-04-depends-on-libssl1-1-but-it-is-not-insta)
 
 Verificar que Mongo está corriendo y agregarlo para que inicie automaticamente	
-sudo systemctl start mongod
-sudo systemctl status mongod
-sudo systemctl enable mongod
+    sudo systemctl start mongod
+    sudo systemctl status mongod
+    sudo systemctl enable mongod
 
 Probar que funciona con mongosh
 
 Reparar permisos de Mongodb (si aparece un error)
-sudo chown -R mongodb:mongodb /var/lib/mongodb
-sudo chown mongodb:mongodb /tmp/mongodb-27017.sock
+    sudo chown -R mongodb:mongodb /var/lib/mongodb
+    sudo chown mongodb:mongodb /tmp/mongodb-27017.sock
 
 2. Instalar Nodejs
-sudo apt-get install -y nodejs npm
+    sudo apt-get install -y nodejs npm
 
 3. Instalar Express
-npm install express --save
+    npm install express --save
 
 4. Clonar repositorio
-5. Instalar Git
-sudo git clone https://github.com/fernandomoraangel/simr.git
-1. sudo sudo npm startnpm install
-2. npm start
+Instalar Git
+    sudo git clone https://github.com/fernandomoraangel/simr.git
+    sudo sudo npm startnpm install
+    npm start
 
-3. Instalar PM2 ver: https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-20-04
-sudo npm install pm2@latest -g
+1. [Instalar PM2](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-20-04)
+    sudo npm install pm2@latest -g
 Desde el directorio de la aplicación:
-pm2 start server.js
-pm2 startup systemd
-sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u fma --hp /home/fma
+    pm2 start server.js
+    pm2 startup systemd
+    sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u fma --hp /home/fma
 Correr, cambiando sammy por el usuario
-pm2 save
-sudo systemctl start pm2-fma
-systemctl status pm2-fma
+    pm2 save
+    sudo systemctl start pm2-fma
+    systemctl status pm2-fma
 Probar si todo va bien: 
-pm2 monit
+    pm2 monit
 
 1.  Crear Certificado SSL autofirmado:
 2.  Crear carpeta para guardar el certificado y la clave:
-openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out simr.crt -keyout simr.key
+    openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out simr.crt -keyout simr.key
 
-Ver: https://liukin.es/como-crear-certificados-autofirmados-en-ubuntu-linux/
+[Tutorial]()]https://liukin.es/como-crear-certificados-autofirmados-en-ubuntu-linux/)
 
 10. Instalar Nginx
-   sudo apt-get install nginx
-   Crear archivo de configuración
-   sudo nano /etc/nginx/sites-available/default
-   
-   Agregar a archivo de configuracion
-   Debe incluir, dentro de server:
-    listen 443 ssl default_server;
-    root /home/fma/simr;
-    server_name simr.com;
-    ssl_certificate /home/fma/ssl/example.crt;
-    ssl_certificate_key /home/fma/ssl/example.key;
-   Comentar la línea: #try_files $uri $uri/ =404;
+    sudo apt-get install nginx
+Crear o editar archivo de configuración
+    sudo nano /etc/nginx/nginx.conf
 
-19.  Reiniciar Nginxs
-sudo service nginx restart
-20.  Configurar Firewall (en ubuntu)
-    sudo ufw allow 80/tcp
-     sudo ufw allow 443/tcp
-     sudo ufw allow 27017/tcp
-     También 27017 si se va a utilizar compass para administrar las bases de datos
-    sudo ufw enable
+Agregar a archivo de configuracion
 
+
+1.   Reiniciar Nginxs
+    sudo service nginx restart
+1.   Configurar Firewall (en ubuntu)
+~~~
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+sudo ufw allow 27017/tcp
+#También 27017 si se va a utilizar compass para administrar las bases de datos
+sudo ufw enable
+~~~
  (en Suse):
+~~~
  # Agregar servicio Nginx a la zona pública
 firewall-cmd --permanent --zone=public --add-service=http
 firewall-cmd --permanent --zone=public --add-service=https
@@ -140,11 +136,11 @@ firewall-cmd --permanent --zone=public --add-port=443/tcp
 
 # Recargar la configuración del firewall
 firewall-cmd --reload
+ ~~~
 
 ## Para usar Compass:
 
 1. Abre el archivo de configuración de MongoDB en tu editor de texto preferido. El archivo se encuentra en /etc/mongod.conf.
-
 2. Busca la línea "bindIp: 127.0.0.1" y cambia "127.0.0.1" por "0.0.0.0" para permitir que MongoDB escuche en todas las interfaces de red. Esto permite que las conexiones remotas se establezcan con tu servidor.
    
 
@@ -153,8 +149,27 @@ firewall-cmd --reload
 5. Reinicia MongoDB para que los cambios surtan efecto ejecutando el comando "sudo systemctl restart mongod"
 
 6. Si tienes un firewall habilitado en tu servidor Ubuntu, asegúrate de permitir el tráfico entrante en el puerto 27017.
-firewall-cmd --permanent --zone=public --add-port=27017/tcp
+    firewall-cmd --permanent --zone=public --add-port=27017/tcp
    
 
 
 Importar usando Compass la colección Diccionarios, como JSON
+
+## Configuración de IP 
+
+[Instrucciones](https://jugandoaseringeniero.wordpress.com/2018/03/01/configuracion-manual-de-los-parametros-de-red-en-opensuse-42-3/)
+
+Para ver la dirección IP asignada a una interfaz de red específica, puede usar el siguiente comando:
+
+    ip addr show <interface>
+
+Para ver la puerta de enlace predeterminada, puede usar el siguiente comando:
+
+    ip route show
+
+Para ver los servidores DNS configurados, puede usar el siguiente comando:
+
+    cat /etc/resolv.conf
+
+Reemplaza <interface> por el nombre de la interfaz de red que deseas ver la información. Ejemplo: 'eth0' o 'wlan0'
+
