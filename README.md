@@ -57,7 +57,7 @@ https://rogerdudler.github.io/git-guide/index.es.html
 6.     zypper install nodejs
 7. [Install MongoDB](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-suse/)
    
-## Instalar en Ubuntu versión 20.0.4
+## Instalar en Ubuntu versión 20.0.4 o SUSE
 1. Instalar Mongo DB 
     sudo apt-get update
     sudo apt-get install -y mongodb-server
@@ -104,7 +104,7 @@ Probar si todo va bien:
 2.  Crear carpeta para guardar el certificado y la clave:
     openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out simr.crt -keyout simr.key
 
-[Tutorial]()]https://liukin.es/como-crear-certificados-autofirmados-en-ubuntu-linux/)
+[Tutorial](]https://liukin.es/como-crear-certificados-autofirmados-en-ubuntu-linux/)
 
 10. Instalar Nginx
     sudo apt-get install nginx
@@ -112,11 +112,29 @@ Crear o editar archivo de configuración
     sudo nano /etc/nginx/nginx.conf
 
 Agregar a archivo de configuracion
+~~~
+# HTTPS server
+server {
+listen 443 ssl;
+server_name localhost ;
+ssl_certificate /home/fma/ssl/simr. crt;
+ssl_certificate_key /home/fma/ssl/simr. key
+root /home/fma/simr;
 
+location / {
+proxy_ pass http://localhost:3666;
+proxy_http_version 1.1;
+proxy_set_header Upgrade $http_upgrade ;
+proxy_set_header Connection 'upgrade' ;
+proxy_set_header Host $host;
+proxy_cache_bypass $http_upgrade ;
+}
+}
+~~~
 
 1.   Reiniciar Nginxs
     sudo service nginx restart
-1.   Configurar Firewall (en ubuntu)
+2.   Configurar Firewall (en ubuntu)
 ~~~
 sudo ufw allow 80/tcp
 sudo ufw allow 443/tcp
@@ -129,11 +147,9 @@ sudo ufw enable
  # Agregar servicio Nginx a la zona pública
 firewall-cmd --permanent --zone=public --add-service=http
 firewall-cmd --permanent --zone=public --add-service=https
-
 # Abrir los puertos 80 y 443 en la zona pública
 firewall-cmd --permanent --zone=public --add-port=80/tcp
 firewall-cmd --permanent --zone=public --add-port=443/tcp
-
 # Recargar la configuración del firewall
 firewall-cmd --reload
  ~~~
