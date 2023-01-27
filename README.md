@@ -5,14 +5,16 @@ El Sistema de información de músicas regionales (simr) es una aplicación CRUD
 1. Instalar Mongodb, Nodejs
 2. Incluir el directorio de Mongodb en el path
 3. Crear directorio para la base de datos en C:\data\db
-4. npm install -g npm-check-updates
-5. npm start
+4.     npm install -g npm-check-updates
+5.     npm start
 
 ## Para reiniciar servidor automáticamente:
 1.     npm install nodemon -g
 2.     npm install -g sassSet-ExecutionPolicy Unrestricted
-3. Iniciar con    nodemon --inspect server.js 
-4. Debug: Atack to node process
+3. Iniciar con    
+4.     nodemon --inspect server.js 
+5. Debug: 
+6.     Atack to node process
 
 ### Tutorial:
 [Tutorial nodemon](https://www.digitalocean.com/community/tutorials/workflow-nodemon-es)
@@ -22,34 +24,35 @@ Usar ctrl+shift+v para visualizar Markdown
 
 ## Útiles
 
-1. https://code.visualstudio.com/docs/nodejs/nodejs-debugging
-2. https://es.wikipedia.org/wiki/Markdown
-3. Usar npm version para manejar versionado automático npm version minor --force
-   https://docs.npmjs.com/cli/v9/commands/npm-version?v=true
+1. [Debug in VSCODE](https://code.visualstudio.com/docs/nodejs/nodejs-debugging)
+2. [Markdown](https://es.wikipedia.org/wiki/Markdown)
+3. Usar npm version para manejar versionado automático 
+       npm version minor --force
+4. [Comandos NPM](https://docs.npmjs.com/cli/v9/commands/npm-version?v=true)
    
 ## GIT
 https://rogerdudler.github.io/git-guide/index.es.html
-1. cd C:\Users\ferna\Documents\Desarrollo\SIMR
-2. git add .
-3. git commit -m "Commit message"
-4. git push origin main
+    cd C:\Users\ferna\Documents\Desarrollo\SIMR
+    git add .
+    git commit -m "Commit message"
+    git push origin main
 
 ## Pendiente
 1. Resolver problema de borrado en la actualización.
 2. Difundir Ayuda al nivel de tabla.
 3. Cambiar el nombre de la carpeta "example"
-4.  Eliminar variables redundantes y funciones no utilizadas.
-5.  Preparar y definir colaboradores parala Wiki del proyecto.
-6.  Construir sistema de roles y permisos.
-7.  Construir sistema de auditoría. Revisar el modelo de datos de la auditoría.
-8.  Verificar existencia de URL en campo enlaces.
-9.  Subir archivos.
+4. Eliminar variables redundantes y funciones no utilizadas.
+5. Preparar y definir colaboradores parala Wiki del proyecto.
+6. Construir sistema de roles y permisos.
+7. Construir sistema de auditoría. Revisar el modelo de datos de la auditoría.
+8. Verificar existencia de URL en campo enlaces.
+9. Subir archivos.
 10. Versionado semántico.
 
 ## Bugs conocidos
 
 ## Instalar en servidor SUSE
-1. Instalar SSH y agregar regla en Firewall https://www.simplified.guide/suse/enable-ssh
+1. [Instalar SSH y agregar regla en Firewall](https://www.simplified.guide/suse/enable-ssh)
 2.     zypper install nodejs
 3. Averiguar ip con comando "ip"
 4.     ssh fma@192.168.68.106
@@ -69,7 +72,8 @@ Verificar que Mongo está corriendo y agregarlo para que inicie automaticamente
     sudo systemctl status mongod
     sudo systemctl enable mongod
 
-Probar que funciona con mongosh
+Probar que funciona
+    mongosh
 
 Reparar permisos de Mongodb (si aparece un error)
     sudo chown -R mongodb:mongodb /var/lib/mongodb
@@ -158,13 +162,9 @@ firewall-cmd --reload
 
 1. Abre el archivo de configuración de MongoDB en tu editor de texto preferido. El archivo se encuentra en /etc/mongod.conf.
 2. Busca la línea "bindIp: 127.0.0.1" y cambia "127.0.0.1" por "0.0.0.0" para permitir que MongoDB escuche en todas las interfaces de red. Esto permite que las conexiones remotas se establezcan con tu servidor.
-   
-
-4. Guarda y cierra el archivo de configuración.
-
-5. Reinicia MongoDB para que los cambios surtan efecto ejecutando el comando "sudo systemctl restart mongod"
-
-6. Si tienes un firewall habilitado en tu servidor Ubuntu, asegúrate de permitir el tráfico entrante en el puerto 27017.
+3. Guarda y cierra el archivo de configuración.
+4. Reinicia MongoDB para que los cambios surtan efecto ejecutando el comando "sudo systemctl restart mongod"
+5. Si tienes un firewall habilitado en tu servidor, asegúrate de permitir el tráfico entrante en el puerto 27017.
     firewall-cmd --permanent --zone=public --add-port=27017/tcp
    
 
@@ -188,4 +188,3 @@ Para ver los servidores DNS configurados, puede usar el siguiente comando:
     cat /etc/resolv.conf
 
 Reemplaza <interface> por el nombre de la interfaz de red que deseas ver la información. Ejemplo: 'eth0' o 'wlan0'
-
