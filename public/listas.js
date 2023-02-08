@@ -167,6 +167,7 @@ roles = [
   "Compilador",
   "Compositor",
   "Ingeniero de audio",
+  "intérprete",
   "Productor",
   "Titular de derechos patrimoniales",
   "Transcriptor",

@@ -31,12 +31,14 @@ Usar ctrl+shift+v para visualizar Markdown
 4. [Comandos NPM](https://docs.npmjs.com/cli/v9/commands/npm-version?v=true)
    
 ## GIT
+~~~
 https://rogerdudler.github.io/git-guide/index.es.html
-    cd C:\Users\ferna\Documents\Desarrollo\SIMR
-    git add .
-    git commit -m "Commit message"
-    git push origin main
+cd C:\Users\ferna\Documents\Desarrollo\SIMR
+git add .
 
+git commit -m "Commit message"
+git push origin main
+~~~
 ## Pendiente
 1. Resolver problema de borrado en la actualización.
 2. Difundir Ayuda al nivel de tabla.
@@ -49,84 +51,91 @@ https://rogerdudler.github.io/git-guide/index.es.html
 9. Subir archivos.
 10. Versionado semántico.
 
-## Bugs conocidos
-
 ## Instalar en servidor SUSE
 1. [Instalar SSH y agregar regla en Firewall](https://www.simplified.guide/suse/enable-ssh)
 2.     zypper install nodejs
-3. Averiguar ip con comando "ip"
-4.     ssh fma@192.168.68.106
-5.     su
-6.     zypper install nodejs
-7. [Install MongoDB](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-suse/)
-   
-## Instalar en Ubuntu versión 20.0.4 o SUSE
-1. Instalar Mongo DB 
+3. [Install MongoDB](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-suse/)
+4. Instalar Mongo DB 
+~~~
     sudo apt-get update
     sudo apt-get install -y mongodb-server
+~~~
 [Y si no](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/#install-mongodb-community-edition)
 [Solucionar problemas de dependencias incumplidas](https://askubuntu.com/questions/1403619/mongodb-install-fails-on-ubuntu-22-04-depends-on-libssl1-1-but-it-is-not-insta)
 
-Verificar que Mongo está corriendo y agregarlo para que inicie automaticamente	
-    sudo systemctl start mongod
-    sudo systemctl status mongod
-    sudo systemctl enable mongod
+Verificar que Mongo está corriendo y agregarlo para que inicie automaticamente
+~~~
+sudo systemctl start mongod
+sudo systemctl status mongod
+sudo systemctl enable mongod
+~~~
 
 Probar que funciona
-    mongosh
+~~~
+mongosh
+~~~
 
 Reparar permisos de Mongodb (si aparece un error)
-    sudo chown -R mongodb:mongodb /var/lib/mongodb
-    sudo chown mongodb:mongodb /tmp/mongodb-27017.sock
+~~~
+sudo chown -R mongodb:mongodb /var/lib/mongodb
+sudo chown mongodb:mongodb /tmp/mongodb-27017.sock
+~~~
 
-2. Instalar Nodejs
-    sudo apt-get install -y nodejs npm
 
-3. Instalar Express
-    npm install express --save
-
-4. Clonar repositorio
+5. Instalar Express
+~~~
+npm install express --save
+~~~
+6. Clonar repositorio
 Instalar Git
-    sudo git clone https://github.com/fernandomoraangel/simr.git
-    sudo sudo npm startnpm install
-    npm start
-
+~~~
+sudo git clone https://github.com/fernandomoraangel/simr.git
+sudo sudo npm startnpm install
+npm start
+~~~
 1. [Instalar PM2](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-20-04)
-    sudo npm install pm2@latest -g
+7. Instalar PM2
+~~~
+sudo npm install pm2@latest -g
+~~~
 Desde el directorio de la aplicación:
-    pm2 start server.js
-    pm2 startup systemd
-    sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u fma --hp /home/fma
-Correr, cambiando sammy por el usuario
-    pm2 save
-    sudo systemctl start pm2-fma
-    systemctl status pm2-fma
-Probar si todo va bien: 
-    pm2 monit
-
-1.  Crear Certificado SSL autofirmado:
-2.  Crear carpeta para guardar el certificado y la clave:
-    openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out simr.crt -keyout simr.key
-
+~~~
+pm2 start server.js
+pm2 startup systemd
+sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u fma --hp /home/fma
+#Correr, cambiando sammy por el usuario
+pm2 save
+sudo systemctl start pm2-fma
+systemctl status pm2-fma
+#Probar si todo va bien: 
+pm2 monit
+~~~
+8. Crear Certificado SSL autofirmado:
+1.  Crear carpeta para guardar el certificado y la clave:
+~~~
+mkdir ssl
+openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out simr.crt -keyout simr.key
+~~~
 [Tutorial](]https://liukin.es/como-crear-certificados-autofirmados-en-ubuntu-linux/)
 
-10. Instalar Nginx
-    sudo apt-get install nginx
-Crear o editar archivo de configuración
-    sudo nano /etc/nginx/nginx.conf
-
+10.  Instalar Nginx
+~~~
+sudo apt-get install nginx
+#Crear o editar archivo de configuración
+sudo nano /etc/nginx/nginx.conf
+~~~
 Agregar a archivo de configuracion
 ~~~
 # HTTPS server
 server {
 listen 443 ssl;
 server_name localhost ;
-ssl_certificate /home/fma/ssl/simr. crt;
-ssl_certificate_key /home/fma/ssl/simr. key
+ssl_certificate /home/fma/ssl/simr.crt;
+ssl_certificate_key /home/fma/ssl/simr.key
 root /home/fma/simr;
 
 location / {
-proxy_ pass http://localhost:3666;
+proxy_ pass http://localhost:3000;
 proxy_http_version 1.1;
 proxy_set_header Upgrade $http_upgrade ;
 proxy_set_header Connection 'upgrade' ;
@@ -136,8 +145,11 @@ proxy_cache_bypass $http_upgrade ;
 }
 ~~~
 
-1.   Reiniciar Nginxs
-    sudo service nginx restart
+1.   Reiniciar Nginxs e incluirlo en autostart
+~~~
+sudo service nginx restart
+sudo systemctl enable nginx
+~~~
 2.   Configurar Firewall (en ubuntu)
 ~~~
 sudo ufw allow 80/tcp
@@ -148,7 +160,7 @@ sudo ufw enable
 ~~~
  (en Suse):
 ~~~
- # Agregar servicio Nginx a la zona pública
+# Agregar servicio Nginx a la zona pública
 firewall-cmd --permanent --zone=public --add-service=http
 firewall-cmd --permanent --zone=public --add-service=https
 # Abrir los puertos 80 y 443 en la zona pública
@@ -188,3 +200,10 @@ Para ver los servidores DNS configurados, puede usar el siguiente comando:
     cat /etc/resolv.conf
 
 Reemplaza <interface> por el nombre de la interfaz de red que deseas ver la información. Ejemplo: 'eth0' o 'wlan0'
+##Acceso por escritorio remoto
+
+
+1. [Configurar XRDP](http://www.scalingbits.com/aws/sap/suse/gnome)
+
+2. [Conectarse XRDP](https://hotsechu.wordpress.com/2021/01/31/conectarse-a-un-equipo-linux-desde-windows-con-xrdp/)
+
