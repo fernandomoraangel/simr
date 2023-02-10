@@ -9,7 +9,9 @@
           <span class="icon-bar"></span>
 
         </button>
-        <img src="img/logomr.png" alt="Logo" class="img-resize" style="max-width: 25%;">
+        <div data-ng-show="authentication.user">
+          <img src="img/logomr2.png" alt="Logo" class="img-resize" style="max-width: 40%;">
+        </div>
         <!-- <span class="glyphicon glyphicon-home" href="/"></span> -->
       </div>
 
@@ -148,9 +150,13 @@
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
-  <!--<div data-ng-show="authentication.user">
-		<h1>Bienvenido al Sistema de Información de Músicas Regionales</h1>
-		<h1> <span data-ng-bind="authentication.user.fullName"></span></h1>
-	</div>
-  -->
+  <div data-ng-show="!authentication.user">
+    <img src="img/sello.png" alt="Logo" class="img-resize" style="max-width: 100%;">
+    <h2>Bienvenido a nuestro Sistema de Información</h2>
+    <a href="/signin">Iniciar sesión</a>
+    <a href="/signup">Registrarse</a>
+    <a href="https://github.com/fernandomoraangel/SistemaInformacionValmus/wiki" target="_blank">Manual de
+      usuario</a>
+    <a ng-click="acercaDe()">Acerca de</a>
+  </div>
 </section>

@@ -119,14 +119,14 @@ angular.module("obras").controller("ObrasController", [
     };
 
     $scope.cargaActores = function (d) {
-      console.log(d);
+      //console.log(d);
       for (var i in d) {
         delete d[i]._id;
       }
       $scope.idActores = [].concat(d);
     };
     $scope.cargaContenedores = function (d) {
-      console.log(d);
+      //console.log(d);
       for (var i in d) {
         delete d[i]._id;
       }
@@ -134,7 +134,7 @@ angular.module("obras").controller("ObrasController", [
     };
 
     $scope.cargaAsientosLigados = function (d) {
-      console.log(d);
+      //console.log(d);
       for (var i in d) {
         delete d[i]._id;
       }
@@ -142,7 +142,7 @@ angular.module("obras").controller("ObrasController", [
     };
 
     $scope.cargaGeneros = function (d) {
-      console.log(d);
+      //console.log(d);
       for (var i in d) {
         delete d[i]._id;
       }
@@ -150,7 +150,7 @@ angular.module("obras").controller("ObrasController", [
     };
 
     $scope.cargaGenerosNoMusicales = function (d) {
-      console.log(d);
+      //console.log(d);
       for (var i in d) {
         delete d[i]._id;
       }
@@ -158,7 +158,7 @@ angular.module("obras").controller("ObrasController", [
     };
 
     $scope.cargaMaterias = function (d) {
-      console.log(d);
+      //console.log(d);
       for (var i in d) {
         delete d[i]._id;
       }
@@ -166,7 +166,7 @@ angular.module("obras").controller("ObrasController", [
     };
 
     $scope.cargaMedios = function (d) {
-      console.log(d);
+      //console.log(d);
       for (var i in d) {
         delete d[i]._id;
       }
@@ -174,7 +174,7 @@ angular.module("obras").controller("ObrasController", [
     };
 
     $scope.cargaSistemas = function (d) {
-      console.log(d);
+      //console.log(d);
       for (var i in d) {
         delete d[i]._id;
       }
@@ -182,7 +182,7 @@ angular.module("obras").controller("ObrasController", [
     };
 
     $scope.cargaIdiomas = function (d) {
-      console.log(d);
+      //console.log(d);
       for (var i in d) {
         delete d[i]._id;
       }
@@ -190,7 +190,7 @@ angular.module("obras").controller("ObrasController", [
     };
 
     $scope.cargaProyectos = function (d) {
-      console.log(d);
+      //console.log(d);
       for (var i in d) {
         delete d[i]._id;
       }
@@ -198,7 +198,7 @@ angular.module("obras").controller("ObrasController", [
     };
 
     $scope.cargaAnotacionesCartograficoTemporales = function (d) {
-      console.log(d);
+      //console.log(d);
       for (var i in d) {
         delete d[i]._id;
       }
@@ -206,7 +206,7 @@ angular.module("obras").controller("ObrasController", [
     };
 
     $scope.cargaDescriptores = function (d) {
-      console.log(d);
+      //console.log(d);
       for (var i in d) {
         delete d[i]._id;
       }
@@ -214,7 +214,7 @@ angular.module("obras").controller("ObrasController", [
     };
 
     $scope.cargaEnlaces = function (d) {
-      console.log(d);
+      //console.log(d);
       for (var i in d) {
         delete d[i]._id;
       }
@@ -525,7 +525,7 @@ angular.module("obras").controller("ObrasController", [
         if (existe === false) {
           $scope.idContenedores.push(obj);
           this.contenedor = "";
-          console.log($scope.idContenedores);
+          //console.log($scope.idContenedores);
         }
       }
     };

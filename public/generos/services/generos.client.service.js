@@ -5,7 +5,7 @@ angular.module("generos").factory("Generos", [
   "$resource",
   function ($resource) {
     //Usar el service '$resource' para devolver un objeto '$resource'
-    console.log("Uso servicio generos");
+    //console.log("Uso servicio generos");
     return $resource(
       "api/generos/:generoId",
       {

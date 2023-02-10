@@ -41,15 +41,54 @@ git push origin main
 ~~~
 ## Pendiente
 1. Resolver problema de borrado en la actualización.
-2. Difundir Ayuda al nivel de tabla.
-3. Cambiar el nombre de la carpeta "example"
-4. Eliminar variables redundantes y funciones no utilizadas.
-5. Preparar y definir colaboradores parala Wiki del proyecto.
-6. Construir sistema de roles y permisos.
-7. Construir sistema de auditoría. Revisar el modelo de datos de la auditoría.
-8. Verificar existencia de URL en campo enlaces.
-9. Subir archivos.
-10. Versionado semántico.
+2. Cambiar el nombre de la carpeta "example"
+3. Eliminar variables redundantes y funciones no utilizadas.
+4. Preparar y definir colaboradores parala Wiki del proyecto.
+5. Construir sistema de roles y permisos.
+6. Construir sistema de auditoría. Revisar el modelo de datos de la auditoría.
+7. Verificar existencia de URL en campo enlaces.
+8.  Subir archivos.
+9.  Versionado semántico.
+    
+## Autenticación Mongo DB
+1. Conectar a Mongod
+~~~
+ mongosh --port 27017
+~~~
+
+2. Crear administrador
+~~~
+use simr
+db.createUser(
+  {
+    user: "superAdmin",
+    pwd: "SOh3TbYhx8ypJPxmt1oOfL",
+    roles: [ { role: "root", db: "admin" } ]
+  })
+~~~
+3. Habilitar autenticación
+~~~
+sudo nano /etc/mongod.conf
+#Cambiar o agregar
+security:
+  authorization: 'enabled'
+~~~
+4. Reiniciar servicio
+~~~
+sudo service mongod restart
+pm2 reload server
+~~~
+5. Conectarse localmente
+~~~
+mongohs --port 27017 -u "superAdmin" -p "SOh3TbYhx8ypJPxmt1oOfL" --authenticationDatabase "simr"
+~~~
+[como](https://codearmy.co/como-crear-autenticaci%C3%B3n-y-permitir-acceso-remoto-a-mongodb-1b0231a6df44) 
+[Mongoose](https://salvatorelab.com/2014/02/activar-y-configurar-autenticacion-en-mongodb/)
+
+6. Para cambiar el password
+~~~
+db.changeUserPassword("accountUser", "SOh3TbYhx8ypJPxmt1oOfL")
+~~~
 
 ## Instalar en servidor SUSE
 1. [Instalar SSH y agregar regla en Firewall](https://www.simplified.guide/suse/enable-ssh)
@@ -177,8 +216,9 @@ firewall-cmd --reload
 3. Guarda y cierra el archivo de configuración.
 4. Reinicia MongoDB para que los cambios surtan efecto ejecutando el comando "sudo systemctl restart mongod"
 5. Si tienes un firewall habilitado en tu servidor, asegúrate de permitir el tráfico entrante en el puerto 27017.
-    firewall-cmd --permanent --zone=public --add-port=27017/tcp
-   
+ ~~~
+firewall-cmd --permanent --zone=public --add-port=27017/tcp
+~~~
 
 
 Importar usando Compass la colección Diccionarios, como JSON
@@ -207,3 +247,10 @@ Reemplaza <interface> por el nombre de la interfaz de red que deseas ver la info
 
 2. [Conectarse XRDP](https://hotsechu.wordpress.com/2021/01/31/conectarse-a-un-equipo-linux-desde-windows-con-xrdp/)
 
+## Actualizar Directorio a última versión del repositorio
+~~~
+git fetch
+~~~
+~~~
+git pull
+~~~

@@ -206,7 +206,7 @@ angular.module("materias").controller("MateriasController", [
 
     $scope.updateMaterias = function () {
       $scope.materias = Materias.query();
-      console.log("Materias actualizadas");
+      //console.log("Materias actualizadas");
     };
 
     //Alias

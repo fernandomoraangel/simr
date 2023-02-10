@@ -78,7 +78,7 @@ angular.module("actores").controller("ActoresController", [
     //Actualizar para editar
 
     $scope.cargaContenedores = function (d) {
-      console.log(d);
+      //console.log(d);
       for (var i in d) {
         delete d[i]._id;
       }
@@ -93,7 +93,7 @@ angular.module("actores").controller("ActoresController", [
     };
 
     $scope.cargaDescriptores = function (d) {
-      console.log(d);
+      //console.log(d);
       for (var i in d) {
         delete d[i]._id;
       }
@@ -101,7 +101,7 @@ angular.module("actores").controller("ActoresController", [
     };
 
     $scope.cargaEnlaces = function (d) {
-      console.log(d);
+      //console.log(d);
       for (var i in d) {
         delete d[i]._id;
       }

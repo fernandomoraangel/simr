@@ -87,7 +87,7 @@ angular.module("recursos").controller("RecursosController", [
     };
 
     $scope.cargaAnotacionesCartograficoTemporales = function (d) {
-      console.log(d);
+      //console.log(d);
       for (var i in d) {
         delete d[i]._id;
       }
@@ -95,7 +95,7 @@ angular.module("recursos").controller("RecursosController", [
     };
 
     $scope.cargaContenedores = function (d) {
-      console.log(d);
+      //console.log(d);
       for (var i in d) {
         delete d[i]._id;
       }
@@ -103,7 +103,7 @@ angular.module("recursos").controller("RecursosController", [
     };
 
     $scope.cargaFuentes = function (d) {
-      console.log(d);
+      //console.log(d);
       for (var i in d) {
         delete d[i]._id;
       }

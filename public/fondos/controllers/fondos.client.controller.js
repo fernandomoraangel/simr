@@ -108,12 +108,12 @@ angular.module("fondos").controller("FondosController", [
       formatDateYMD(date, precision);
     $scope.parseFecha = function (d) {
       const timestamp = Date.parse(d);
-      console.log(timestamp); // 1686240000000
+      //console.log(timestamp); // 1686240000000
       const date = new Date(timestamp);
       if (!isNaN(date.getTime())) {
-        console.log(date); // 2022-12-18T00:00:00.000Z
+        //console.log(date); // 2022-12-18T00:00:00.000Z
         const formattedDate = date.toISOString().slice(0, 10);
-        console.log(formattedDate); // 2022-12-18
+        //console.log(formattedDate); // 2022-12-18
 
         // Get a reference to the input element
         var inputElement = document.getElementById("fechaCreacion");
